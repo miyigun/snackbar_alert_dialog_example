@@ -7,6 +7,7 @@ const SnackBar snackBarOne=SnackBar(
     'Alert has been pressed!',
     style: TextStyle(fontSize: 30),
   ),
+  duration: Duration(seconds: 2),
 );
 
 const SnackBar snackBarTwo=SnackBar(
@@ -22,6 +23,35 @@ const SnackBar snackBarThree=SnackBar(
     style: TextStyle(fontSize: 30),
   ),
 );
+
+Future<void> _dialogBuilder(BuildContext context, String content) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: true,
+    useSafeArea: true,
+    useRootNavigator: true,
+    builder: (context){
+      return AlertDialog(
+        icon: const Icon(
+            Icons.warning,
+          size: 60,
+          color: Colors.red,
+        ),
+        title: const Text("Beware!"),
+        content: Text(content),
+        actions: [
+          ElevatedButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
 void clickNextPage(BuildContext context){
   Navigator.push(
@@ -128,9 +158,7 @@ class Home extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                onPressed: (){
-
-                },
+                onPressed: () =>  _dialogBuilder(context,'You have chosen answer 1'),
               ),
             ),
           ),
@@ -158,9 +186,7 @@ class Home extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                onPressed: (){
-
-                },
+                onPressed: () =>  _dialogBuilder(context,'You have chosen answer 2'),
               ),
             ),
           ),
@@ -188,9 +214,9 @@ class Home extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                onPressed: (){
+                onPressed: () =>  _dialogBuilder(context,'You have chosen answer 3'),
 
-                },
+
               ),
             ),
           ),
